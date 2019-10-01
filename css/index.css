@@ -1,0 +1,13 @@
+.vertice {
+    text-align: center;
+    background-color: green;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}
+
+.vertice-text{
+    font-size: 20px;
+    color: white;
+}
+
