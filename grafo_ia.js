@@ -8,6 +8,7 @@ $(document).ready(function () {
 var grafo = [];
 var arestas = [];
 var vertices = 2;
+var matriz_arestas = [];
 
 function criar_grafo(num_vertices) {
     $('.linha-cima').html('');
@@ -40,36 +41,31 @@ function criar_aresta(a_origem, a_destino) {
                         if (i % 2 != 0) {
                             opcoes.push({
                                 vertice: i,
-                                opcoes: [i - 2, i - 1, i + 1, i + 2, i + 3],
-                                tipo: "1"
+                                opcoes: [i - 2, i - 1, i + 1, i + 2, i + 3]
                             });
                         } else {
                             opcoes.push({
                                 vertice: i,
-                                opcoes: [i - 3, i - 2, i - 1, i + 1, i + 2],
-                                tipo: "1"
+                                opcoes: [i - 3, i - 2, i - 1, i + 1, i + 2]
                             });
                         }
 
                     } else {
                         opcoes.push({
                             vertice: i,
-                            opcoes: [i - 2, i - 1],
-                            tipo: "2"
+                            opcoes: [i - 2, i - 1]
                         });
                     }
                 } else {
                     if (i % 2 != 0) {
                         opcoes.push({
                             vertice: i,
-                            opcoes: [i - 2, i - 1, i + 1],
-                            tipo: "8"
+                            opcoes: [i - 2, i - 1, i + 1]
                         });
                     } else {
                         opcoes.push({
                             vertice: i,
-                            opcoes: [i - 3, i - 2, i - 1, i + 1],
-                            tipo: "9"
+                            opcoes: [i - 3, i - 2, i - 1, i + 1]
                         });
                     }
 
@@ -78,15 +74,13 @@ function criar_aresta(a_origem, a_destino) {
             } else {
                 opcoes.push({
                     vertice: i,
-                    opcoes: [i - 1, i + 1, i + 2],
-                    tipo: "4"
+                    opcoes: [i - 1, i + 1, i + 2]
                 });
             }
         } else {
             opcoes.push({
                 vertice: i,
-                opcoes: [i + 1, i + 2, i + 3],
-                tipo: "5"
+                opcoes: [i + 1, i + 2, i + 3]
             });
         }
         i++;
@@ -97,21 +91,41 @@ function criar_aresta(a_origem, a_destino) {
             if (vertice.opcoes.indexOf(a_destino) > -1) {
                 console.log('valido ' + a_origem + '-' + a_destino);
                 console.log(vertice.opcoes);
-                if (a_destino == a_origem + 3 || a_destino == a_origem - 1) {
-                    console.log('diagonal');
-                    arestas.push({
-                        origem: a_origem,
-                        destino: a_destino,
-                        peso: 1.41
-                    });
+                if (a_origem % 2 != 0) {
+                    if (a_destino == a_origem + 3 || a_destino == a_origem - 1) {
+                        console.log('diagonal');
+                        arestas.push({
+                            origem: a_origem,
+                            destino: a_destino,
+                            peso: 1.41
+                        });
+                    } else {
+                        console.log('horizontal/vertical');
+                        arestas.push({
+                            origem: a_origem,
+                            destino: a_destino,
+                            peso: 1
+                        });
+                    }
                 } else {
-                    console.log('horizontal/vertical');
-                    arestas.push({
-                        origem: a_origem,
-                        destino: a_destino,
-                        peso: 1
-                    });
+                    if (a_destino == a_origem - 3 || a_destino == a_origem + 1) {
+                        console.log('diagonal');
+                        arestas.push({
+                            origem: a_origem,
+                            destino: a_destino,
+                            peso: 1.41
+                        });
+                    } else {
+                        console.log('horizontal/vertical');
+                        arestas.push({
+                            origem: a_origem,
+                            destino: a_destino,
+                            peso: 1
+                        });
+                    }
                 }
+
+                matriz_arestas.push([a_origem, a_destino]);
             } else {
                 console.log('invalido ' + a_origem + '-' + a_destino);
                 console.log(vertice.opcoes);
