@@ -1,5 +1,21 @@
-function rundjik(){
-    dijkstra(1,5);
+$(document).ready(function () {
+    criar_grafo(9);
+    criar_aresta(1, 2);
+    criar_aresta(1, 3);
+    criar_aresta(3, 5);
+    criar_aresta(1, 4);
+    criar_aresta(4, 5);
+    dijkstra(1, 5);
+});
+
+
+var grafo = [];
+var arestas = [];
+var vertices = 2;
+var matriz_arestas = [];
+
+function rundjik() {
+    dijkstra(1, 5);
 }
 
 function setGrafo() {
@@ -36,11 +52,6 @@ function connectDots(xA, yA, xB, yB) {
     a.setAttribute("style", "width:" + Math.sqrt(Math.pow(xA - xB, 2) + Math.pow(yA - yB, 2)) + "px;height:2px;position:absolute;background-color:black;top:" + yA + "px;left:" + xA + "px;-moz-transform:rotate(" + r + "deg);-moz-transform-origin:0px 0px;-webkit-transform:rotate(" + r + "deg);-webkit-transform-origin:0px 0px;transform:rotate(" + r + "deg);transform-origin:0px 0px;-ms-transform:rotate(" + r + "deg);-ms-transform-origin:0px 0px;");
     document.body.appendChild(a);
 }
-
-var grafo = [];
-var arestas = [];
-var vertices = 2;
-var matriz_arestas = [];
 
 function criar_grafo(num_vertices) {
     $('.linha-cima').html('');
@@ -157,30 +168,82 @@ function criar_aresta(a_origem, a_destino) {
         }
     });
 
+    console.log(matriz_arestas);
 }
 
 function dijkstra(a_origem, a_destino) {
 
     let atual = a_origem;
     let filhos = [];
+    let caminhos = [];
     let caminho = [a_origem];
     let proibido = [];
+    let distancia = 0;
 
-    while (atual != a_destino) {
-        filhos = verifica_filhos(atual, proibido);
-        if (filhos.length > 0) {
-            anterior = atual;
-            atual = menor_custo(filhos);
-            caminho.push(atual);
-        } else {
-            proibido.push(atual);
-            atual = a_origem;
-            caminho = [a_origem];
+    while (caminhos.length < num_caminhos(a_destino)) {
+        console.log('alo');
+        atual = a_origem;
+        caminho = [a_origem];
+        distancia = 0;
+        while (atual != a_destino) {
+            filhos = verifica_filhos(atual, proibido);
+            if (filhos.length > 0) {
+                anterior = atual;
+                atual = menor_custo(filhos);
+                distancia += calcula_distancia(anterior, atual);
+                console.log(calcula_distancia(anterior, atual))
+                caminho.push(atual);
+            } else {
+                proibido.push(atual);
+                atual = a_origem;
+                caminho = [a_origem];
+            }
         }
-        console.log(atual);
+
+        caminhos.push([caminho, distancia]);
+        proibido.push(caminho[1]);
+
     }
 
-    console.log(caminho);
+    console.log(melhor_caminho(caminhos));
+
+}
+
+function melhor_caminho(caminhos) {
+    let melhor = 999;
+    let m_caminho;
+
+    caminhos.forEach(caminho => {
+        if (caminho[1] < melhor) {
+            m_caminho = caminho;
+            melhor = caminho[1];
+        }
+    });
+
+    return m_caminho;
+}
+
+function calcula_distancia(anterior, atual) {
+    let peso = 0;
+
+    arestas.forEach(aresta => {
+        if (aresta.origem == anterior && aresta.destino == atual) {
+            peso = aresta.peso;
+        }
+    });
+
+    return peso;
+}
+
+function num_caminhos(destino) {
+    let num = 0;
+    arestas.forEach(aresta => {
+        if (aresta.destino == destino) {
+            num++;
+        }
+    });
+
+    return num;
 }
 
 function menor_custo(filhos) {
