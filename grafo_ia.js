@@ -1,3 +1,7 @@
+function rundjik(){
+    dijkstra(1,5);
+}
+
 function setGrafo() {
     if ($('#qtd_vertices').val() > 20) {
         val = 20;
@@ -6,6 +10,7 @@ function setGrafo() {
     }
     criar_grafo(val);
     $('#vert').hide();
+    $('#btndjk').show();
     $('#inicio_fim').show();
 }
 
