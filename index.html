@@ -10,10 +10,38 @@
     <div class="col-md-12">
         <div class="row">
             <div class="mx-auto">
-                <div id="grafo">
-                    <div class="row linha-cima">
+                <div id="vert">
+                    <div class="form-group">
+                      <label for="qtd_vertices">Quantidade de vertices</label>
+                      <input type="number" max="20" class="form-control" id="qtd_vertices">
                     </div>
-                    <div class="row linha-baixo">
+                    <button class="btn btn-success" onclick="setGrafo()">Criar Grafo</button>
+                </div>
+                <div id="inicio_fim" style="display:none">
+                    <div class="row">
+                      <div class="col">
+                        <label for="inicio">Vertice inicial</label>
+                        <input type="number" class="form-control" id="inicio">
+                      </div>
+                      <div class="col">
+                        <label for="fim">Vertice final</label>
+                        <input type="number" class="form-control" id="fim">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                            <button class="btn btn-success" onclick="setAresta()">Criar Aresta</button>
+                      </div>
+                      <div class="col">
+                          <div id="feedback"></div>
+                      </div>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;" id="grafo">
+                    <div style="display: flex" class="row linha-cima">
+                    </div>
+                    <br>
+                    <div style="display: flex" class="row linha-baixo">
 
                     </div>
                 </div>
