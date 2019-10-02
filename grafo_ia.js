@@ -1,21 +1,15 @@
-$(document).ready(function () {
-    criar_grafo(9);
-    criar_aresta(1, 2);
-    criar_aresta(1, 3);
-    criar_aresta(3, 5);
-    criar_aresta(1, 4);
-    criar_aresta(4, 5);
-    dijkstra(1, 5);
-});
-
 
 var grafo = [];
 var arestas = [];
 var vertices = 2;
 var matriz_arestas = [];
 
-function rundjik() {
-    dijkstra(1, 5);
+function rundjik(ini, fim) {
+    ini = parseInt(ini);
+    fim = parseInt(fim);
+    dijkstra(ini, fim);
+    $('#dist-ini').val('');
+    $('#dist-fim').val('');
 }
 
 function setGrafo() {
@@ -28,11 +22,15 @@ function setGrafo() {
     $('#vert').hide();
     $('#btndjk').show();
     $('#inicio_fim').show();
+    $('#ini-fim').show();
+    $('#btnmatriz').show();
 }
 
 function setAresta() {
-    ver1 = $('#inicio').val()
-    ver2 = $('#fim').val()
+    ver1 = $('#inicio').val();
+    ver2 = $('#fim').val();
+    $('#inicio').val('');
+    $('#fim').val('');
     criar_aresta(parseInt(ver1), parseInt(ver2));
     arestas.forEach(aresta => {
         var div1 = $(`#vertice-${aresta.origem}`);
@@ -60,15 +58,24 @@ function criar_grafo(num_vertices) {
     while (i <= num_vertices) {
         if (i % 2 != 0) {
             grafo.push([2, i]);
-            $('.linha-cima').append(`<div class="vertice" id="vertice-${i}" style="z-index:99999; margin-right:16px"><span class="vertice-text">${i}</span></div>`)
+            $('.linha-cima').append(`<div class="vertice" id="vertice-${i}" style="z-index:10; margin-right:16px"><span class="vertice-text">${i}</span></div>`)
         } else {
             grafo.push([0, i]);
-            $('.linha-baixo').append(`<div class="vertice" id="vertice-${i}" style="z-index:99999; margin-right:16px"><span class="vertice-text">${i}</span></div>`)
+            $('.linha-baixo').append(`<div class="vertice" id="vertice-${i}" style="z-index:10; margin-right:16px"><span class="vertice-text">${i}</span></div>`)
         }
         i++;
     }
 
     vertices = num_vertices;
+}
+
+function matriz_adjacencias() {
+    $('.arestas-cima').html('<th scope="col">#</th>');
+    for (let i = 1; i <= vertices; i++) {
+        $('.arestas-cima').append(`<th scope="col">${i}</th>`);
+        $('.arestas-lado').append(`<tr><th scope="row">${i}</th></tr>`);
+    }
+    $('.modal-body').html()
 }
 
 function criar_aresta(a_origem, a_destino) {
@@ -173,6 +180,8 @@ function criar_aresta(a_origem, a_destino) {
 
 function dijkstra(a_origem, a_destino) {
 
+    console.log(a_origem);
+    console.log(a_destino);
     let atual = a_origem;
     let filhos = [];
     let caminhos = [];
@@ -205,7 +214,9 @@ function dijkstra(a_origem, a_destino) {
 
     }
 
-    console.log(melhor_caminho(caminhos));
+    var m_caminho = melhor_caminho(caminhos);
+    console.log(m_caminho);
+    $('#caminho').html(`<div class="col"><h4>Caminho: ${m_caminho[0]}</h4></div><div>Peso: ${m_caminho[1]}</div>`);
 
 }
 

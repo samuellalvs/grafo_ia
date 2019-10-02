@@ -2,53 +2,95 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
-<body>
-    <div class="col-md-12">
-        <div class="row">
-            <div class="mx-auto">
-                <div id="vert">
-                    <div class="form-group">
-                      <label for="qtd_vertices">Quantidade de vertices</label>
-                      <input type="number" max="20" class="form-control" id="qtd_vertices">
-                    </div>
-                    <button class="btn btn-success" onclick="setGrafo()">Criar Grafo</button>
-                </div>
-                <div id="inicio_fim" style="display:none">
-                    <div class="row">
-                      <div class="col">
-                        <label for="inicio">Vertice inicial</label>
-                        <input type="number" class="form-control" id="inicio">
-                      </div>
-                      <div class="col">
-                        <label for="fim">Vertice final</label>
-                        <input type="number" class="form-control" id="fim">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                            <button class="btn btn-success" onclick="setAresta()">Criar Aresta</button>
-                      </div>
-                      <div class="col">
-                          <div id="feedback"></div>
-                      </div>
-                    </div>
-                </div>
-                <div style="margin-top: 30px;" id="grafo">
-                    <div style="display: flex" class="row linha-cima">
-                    </div>
-                    <br>
-                    <div style="display: flex" class="row linha-baixo">
-
-                    </div>
-                    <button class="btn btn-success" style="display:none;" id="btndjk" onclick="rundjik()">Djkistra</button>
-                </div>
-            </div>
+<body style="height: 100vh">
+  <div class="col-md-12">
+    <div class="row" style="height: 100vh">
+      <div class="mx-auto my-auto">
+        <div id="vert">
+          <div class="form-group">
+            <label for="qtd_vertices">Quantidade de vertices</label>
+            <input type="number" max="20" class="form-control" id="qtd_vertices">
+          </div>
+          <button class="btn btn-success " onclick="setGrafo()">Criar Grafo</button>
         </div>
+        <div id="inicio_fim" style="display:none">
+          <div class="row">
+            <div class="col">
+              <label for="inicio">Vertice inicial</label>
+              <input type="number" class="form-control" id="inicio">
+            </div>
+            <div class="col">
+              <label for="fim">Vertice final</label>
+              <input type="number" class="form-control" id="fim">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-success" onclick="setAresta()">Criar Aresta</button>
+            </div>
+            <div class="col">
+              <div id="feedback"></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 30px;" id="grafo">
+          <div style="display: flex" class="row linha-cima">
+          </div>
+          <br>
+          <div style="display: flex" class="row linha-baixo">
+
+          </div>
+          <button class="btn btn-success" style="display:none;" id="btndjk"
+            onclick="rundjik($('#dist-ini').val(), $('#dist-fim').val())">Djkistra</button>
+          <button class="btn btn-success" id="btnmatriz" style="display: none" data-toggle="modal"
+            data-target="#ExemploModalCentralizado" onclick="matriz_adjacencias()">Matriz</button>
+          <div id="ini-fim" style="display: none">
+            <div class="col">
+              <label for="dist-fim">Vertice final</label>
+              <input type="number" class="form-control" id="dist-ini">
+            </div>
+            <div class="col">
+              <label for="dist-ini">Vertice final</label>
+              <input type="number" class="form-control" id="dist-fim">
+            </div>
+            <div id="caminho" class="row">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog"
+    aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TituloModalCentralizado">Matriz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="arestas-cima">
+                <th scope="col">#</th>
+              </tr>
+            </thead>
+            <tbody class="arestas-lado">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script src="js/jquery-3.4.1.js"></script>
