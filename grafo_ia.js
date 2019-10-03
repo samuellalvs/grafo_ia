@@ -241,6 +241,7 @@ function dijkstra(a_origem, a_destino) {
     var m_caminho = melhor_caminho(caminhos);
     console.log(m_caminho);
     pinta_caminho(m_caminho[0]);
+    $("#caminho-peso").html(`O peso do caminho percorrido foi: ${m_caminho[1]}`);
 }
 
 function melhor_caminho(caminhos) {
