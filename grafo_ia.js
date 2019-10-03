@@ -4,16 +4,14 @@ var arestas = [];
 var vertices = 2;
 var matriz_arestas = [];
 
-function rundjik(ini, fim) {
-    ini = parseInt(ini);
-    fim = parseInt(fim);
+function rundjik() {
+    ini = parseInt(prompt("Digite o vertice inicial"));
+    fim = parseInt(prompt("Digite o vertice final"));
     dijkstra(ini, fim);
-    $('#dist-ini').val('');
-    $('#dist-fim').val('');
 }
 
 function setGrafo() {
-    if ($('#qtd_vertices').val() > 20) {
+    if ($('#qtd_vertices').val() > 20 || $('#qtd_vertices').val() == 0) {
         val = 20;
     } else {
         val = $('#qtd_vertices').val();

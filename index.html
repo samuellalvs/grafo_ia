@@ -17,7 +17,8 @@
           </div>
           <button class="btn btn-success " onclick="setGrafo()">Criar Grafo</button>
         </div>
-        <div id="inicio_fim" style="display:none">
+        <div id="inicio_fim" class="text-center" style="display:none">
+          <div class="col-md-12"><h3>Escolha o vertice inicial e <br>final para criar uma aresta</h3></div>
           <div class="row">
             <div class="col">
               <label for="inicio">Vertice inicial</label>
@@ -30,36 +31,29 @@
           </div>
           <div class="row">
             <div class="col">
-              <button class="btn btn-success" onclick="setAresta()">Criar Aresta</button>
+              <button class="btn btn-success" style="margin-top:10px" onclick="setAresta()">Criar Aresta</button>
             </div>
             <div class="col">
               <div id="feedback"></div>
             </div>
           </div>
         </div>
-        <div style="margin-top: 30px;" id="grafo">
+        <div style="margin-top: 30px;" class="mx-auto" id="grafo">
           <div style="display: flex" class="row linha-cima">
           </div>
           <br>
           <div style="display: flex" class="row linha-baixo">
 
           </div>
-          <button class="btn btn-success" style="display:none;" id="btndjk"
-            onclick="rundjik($('#dist-ini').val(), $('#dist-fim').val())">Djkistra</button>
-          <button class="btn btn-success" id="btnmatriz" style="display: none" data-toggle="modal"
-            data-target="#ExemploModalCentralizado" onclick="matriz_adjacencias()">Matriz</button>
-          <div id="ini-fim" style="display: none">
-            <div class="col">
-              <label for="dist-fim">Vertice final</label>
-              <input type="number" class="form-control" id="dist-ini">
-            </div>
-            <div class="col">
-              <label for="dist-ini">Vertice final</label>
-              <input type="number" class="form-control" id="dist-fim">
-            </div>
-            <div id="caminho" class="row">
+          <div class="row" style="margin-top:10px">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-success" style="display:none;" id="btndjk"
+                onclick="rundjik()">Djkistra</button>
+              <button class="btn btn-success" id="btnmatriz" style="display: none" data-toggle="modal"
+                data-target="#ExemploModalCentralizado" onclick="matriz_adjacencias()">Matriz</button>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
