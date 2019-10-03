@@ -23,3 +23,7 @@
 .modal-lg, .modal-xl {
     max-width: 1560px !important;
 }
+
+.black{
+    color:black !important;
+}
