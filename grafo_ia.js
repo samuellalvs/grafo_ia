@@ -241,8 +241,8 @@ function dijkstra(a_origem, a_destino) {
     var m_caminho = melhor_caminho(caminhos);
     console.log(m_caminho);
     pinta_caminho(m_caminho[0]);
+    $("#caminho-peso").html(`O peso do caminho percorrido foi: ${m_caminho[1]}<br>`);
     manhattan(a_origem, a_destino);
-    $("#caminho-peso").html(`O peso do caminho percorrido foi: ${m_caminho[1]}`);
 }
 
 function melhor_caminho(caminhos) {
@@ -341,7 +341,7 @@ function manhattan(a_origem, a_destino) {
 
     console.log('OX:' + o_posicao_x + ' OY:' + o_posicao_y);
     console.log('DX:' + d_posicao_x + ' DY:' + d_posicao_y);
-    alert('Distancia Manhanttan: ' + calculo);
+    $("#caminho-peso").append('Distancia Manhanttan: ' + calculo);
 
 }
 
