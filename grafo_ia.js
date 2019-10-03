@@ -69,11 +69,17 @@ function criar_grafo(num_vertices) {
 
 function matriz_adjacencias() {
     $('.arestas-cima').html('<th scope="col">#</th>');
+    $('.arestas-lado').html('');
     for (let i = 1; i <= vertices; i++) {
         $('.arestas-cima').append(`<th scope="col">${i}</th>`);
-        $('.arestas-lado').append(`<tr><th scope="row">${i}</th></tr>`);
+        $('.arestas-lado').append(`<tr><th scope="row">${i}</th>`);
+        for (let y = 1; y <= vertices; y++) {
+            console.log('alo');
+            $('.arestas-lado').append(`<td id='td-${i}-${y}'></td>`);
+        }
+        $('.arestas-lado').append(`</tr>`);
     }
-    $('.modal-body').html()
+
 }
 
 function criar_aresta(a_origem, a_destino) {
