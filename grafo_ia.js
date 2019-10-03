@@ -220,8 +220,7 @@ function dijkstra(a_origem, a_destino) {
 
     var m_caminho = melhor_caminho(caminhos);
     console.log(m_caminho);
-    $('#caminho').html(`<div class="col"><h4>Caminho: ${m_caminho[0]}</h4></div><div>Peso: ${m_caminho[1]}</div>`);
-
+    pinta_caminho(m_caminho[0]);
 }
 
 function melhor_caminho(caminhos) {
@@ -285,4 +284,12 @@ function verifica_filhos(vertice, proibido) {
     });
 
     return filhos;
+}
+
+function pinta_caminho(caminho){
+    caminho.forEach(function (vertice, index) {
+        setTimeout(function(){
+            $(`#vertice-${vertice}`).addClass('verticepercorrido');
+        },index * 700);
+    });
 }
