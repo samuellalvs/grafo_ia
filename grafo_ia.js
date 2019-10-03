@@ -55,7 +55,7 @@ function criar_grafo(num_vertices) {
     let i = 1;
     while (i <= num_vertices) {
         if (i % 2 != 0) {
-            grafo.push([2, i]);
+            grafo.push([1, i]);
             $('.linha-cima').append(`<div class="vertice" id="vertice-${i}" style="z-index:10; margin-right:16px"><span class="vertice-text">${i}</span></div>`)
         } else {
             grafo.push([0, i]);
@@ -221,6 +221,7 @@ function dijkstra(a_origem, a_destino) {
     var m_caminho = melhor_caminho(caminhos);
     console.log(m_caminho);
     pinta_caminho(m_caminho[0]);
+    manhattan(a_origem, a_destino);
 }
 
 function melhor_caminho(caminhos) {
@@ -273,6 +274,56 @@ function menor_custo(filhos) {
     return menor.destino;
 }
 
+function manhattan(a_origem, a_destino) {
+    let origem = [0, 0];
+    let destino = [0, 0];
+    let calculo = 0;
+    grafo.forEach(aresta => {
+        if (aresta[1] == a_origem) {
+            origem = aresta;
+        }
+
+        if (aresta[1] == a_destino) {
+            destino = aresta;
+        }
+    });
+
+    var o_posicao_y = origem[0];
+    var d_posicao_y = destino[0];
+    if (origem[1] % 2 == 0) {
+        var o_posicao_x = 1;
+        for (let i = 2; i < origem[1]; i += 2) {
+            o_posicao_x++;
+        }
+    } else {
+        var o_posicao_x = 1;
+        for (let y = 1; y < origem[1]; y += 2) {
+            o_posicao_x++;
+        }
+    }
+
+    if (destino[1] % 2 == 0) {
+        var d_posicao_x = 1;
+        for (let i = 2; i < destino[1]; i += 2) {
+            d_posicao_x++;
+        }
+    } else {
+        var d_posicao_x = 1;
+        for (let y = 1; y < destino[1]; y += 2) {
+            d_posicao_x++;
+        }
+    }
+
+    let c_x = Math.abs((o_posicao_x - d_posicao_x));
+    let c_y = Math.abs((o_posicao_y - d_posicao_y));
+    calculo = c_x + c_y;
+
+    console.log('OX:' + o_posicao_x + ' OY:' + o_posicao_y);
+    console.log('DX:' + d_posicao_x + ' DY:' + d_posicao_y);
+    alert('Distancia Manhanttan: ' + calculo);
+
+}
+
 function verifica_filhos(vertice, proibido) {
     let filhos = [];
     arestas.forEach(aresta => {
@@ -286,10 +337,10 @@ function verifica_filhos(vertice, proibido) {
     return filhos;
 }
 
-function pinta_caminho(caminho){
+function pinta_caminho(caminho) {
     caminho.forEach(function (vertice, index) {
-        setTimeout(function(){
+        setTimeout(function () {
             $(`#vertice-${vertice}`).addClass('verticepercorrido');
-        },index * 700);
+        }, index * 700);
     });
 }
