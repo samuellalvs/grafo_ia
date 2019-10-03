@@ -68,15 +68,35 @@ function criar_grafo(num_vertices) {
 }
 
 function matriz_adjacencias() {
+    //||
     $('.arestas-cima').html('<th scope="col">#</th>');
     $('.arestas-lado').html('');
     for (let i = 1; i <= vertices; i++) {
         $('.arestas-cima').append(`<th scope="col">${i}</th>`);
-        $('.arestas-lado').append(`<tr><th scope="row">${i}</th>`);
+        $('.arestas-lado').append(`<tr>`);
+
+        $('.arestas-lado').append(`<td scope="row"><b>${i}<b/></td>`);
         for (let y = 1; y <= vertices; y++) {
-            console.log('alo');
-            $('.arestas-lado').append(`<td id='td-${i}-${y}'></td>`);
+            matriz_arestas.forEach(array => {
+                primeiro_valor = array[0];
+                segundo_valor = array[1];
+                if (primeiro_valor == i && segundo_valor == y) {
+                    arestas.forEach(aresta => {
+                        if ((aresta.origem == i && aresta.destino == y) || (aresta.origem == y && aresta.destino == i)) {
+                            $('.arestas-lado').append(`<td id='td-${i}-${y}' style="color: red; background-color:#f1f1f1;" class="text-center"><b>${aresta.peso}</b></td>`);
+                        }
+                    });
+                }
+            });
+            if (document.getElementById(`td-${i}-${y}`) === null) {
+                if (i < y || i == y) {
+                    $('.arestas-lado').append(`<td id='td-${i}-${y}' class="text-center">0</td>`);
+                } else {
+                    $('.arestas-lado').append(`<td id='td-${i}-${y}'></td>`);
+                }
+            }
         }
+
         $('.arestas-lado').append(`</tr>`);
     }
 
@@ -172,7 +192,7 @@ function criar_aresta(a_origem, a_destino) {
                     }
                 }
 
-                matriz_arestas.push([a_origem, a_destino]);
+                if (a_origem < a_destino) { matriz_arestas.push([a_origem, a_destino]); } else { matriz_arestas.push([a_destino, a_origem]) }
             } else {
                 console.log('invalido ' + a_origem + '-' + a_destino);
             }
@@ -222,6 +242,7 @@ function dijkstra(a_origem, a_destino) {
     console.log(m_caminho);
     pinta_caminho(m_caminho[0]);
     manhattan(a_origem, a_destino);
+    $("#caminho-peso").html(`O peso do caminho percorrido foi: ${m_caminho[1]}`);
 }
 
 function melhor_caminho(caminhos) {
@@ -338,6 +359,9 @@ function verifica_filhos(vertice, proibido) {
 }
 
 function pinta_caminho(caminho) {
+    for (let vertice = 0; vertice < 21; vertice++) {
+        $(`#vertice-${vertice}`).removeClass('verticepercorrido');
+    }
     caminho.forEach(function (vertice, index) {
         setTimeout(function () {
             $(`#vertice-${vertice}`).addClass('verticepercorrido');

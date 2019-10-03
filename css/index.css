@@ -19,3 +19,7 @@
     background-color: #bd2130 !important;
     transition: background-color 0.5s;
 }
+
+.modal-lg, .modal-xl {
+    max-width: 1560px !important;
+}
